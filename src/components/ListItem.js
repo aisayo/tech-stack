@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text } from 'react-native';
 import { CardItem } from './common';
+import { connect } from 'react-redux';
  
 class ListItem extends Component {
   render() {
