@@ -1,35 +1,27 @@
 import React, { Component } from 'react';
-import { ListView } from 'react-native';
 import { connect } from 'react-redux';
-
-
+import { FlatList } from 'react-native';
+import ListItem from './ListItem';
+ 
 class LibraryList extends Component {
-    componentWillMount() {
-        const ds = new ListView.DataSource({ 
-            rowHasChanged: (r1, r2) => r1 !== r2
-        });
-
-        this.DataSource = ds.cloneWithRows(this.props.libraries);
-    }
-
-    renderRow() {
-        
-    }
-
-    render() {
-        return(
-            <ListView
-                dataSource={this.dataSource}
-                renderRow={this.renderRow}
-            />
-        );
-    }
+ 
+  renderItem({ item }) {
+    return <ListItem item={item} />;
+  }
+ 
+  render() {
+    return (
+      <FlatList
+        data={this.props.libraries}
+        renderItem={this.renderItem}
+        keyExtractor={(item) => item.id.toString()}
+      />
+    );
+  }
 }
-
+ 
 const mapStateToProps = state => {
-    return { libraries: state.libraries };
+  return { libraries: state.libraries };
 };
-
+ 
 export default connect(mapStateToProps)(LibraryList);
-//we call connect(), that returns a function with the Library List
-//conect forges a connection between react and redux part of app
